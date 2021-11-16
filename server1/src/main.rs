@@ -11,6 +11,7 @@ async fn graphql(
 
 #[actix_web::main]
 async fn main() -> std::io::Result<()> {
+    env_logger::init();
     HttpServer::new(move || {
         App::new()
             .data(get_schema().clone())

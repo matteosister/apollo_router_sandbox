@@ -1,5 +1,6 @@
 use crate::gql_types::Quote;
 use async_graphql::*;
+use async_graphql::extensions::Logger;
 
 pub type Server1Schema = async_graphql::Schema<Query, EmptyMutation, EmptySubscription>;
 
@@ -32,6 +33,7 @@ impl Query {
 
 pub fn get_schema() -> Server1Schema {
     Schema::build(Query, EmptyMutation, EmptySubscription)
+        .extension(Logger)
         .enable_federation()
         .finish()
 }
