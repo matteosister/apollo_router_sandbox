@@ -2,12 +2,21 @@ defmodule Server3Web.Schema do
   use Absinthe.Schema
   use Absinthe.Federation.Schema
 
+  @claim %{id: 10, vehicle: "AA000BB", paid: 200}
+
   query do
     field :multiply, non_null(:integer) do
       arg :a, non_null(:integer)
       arg :b, non_null(:integer)
-      resolve fn  end_, args, _ ->
+      resolve fn _, args, _ ->
         {:ok, args.a * args.b}
+      end
+    end
+
+    field :claim, non_null(:claim) do
+      arg :id, non_null(:id)
+      resolve fn _, args, _ ->
+        {:ok, @claim}
       end
     end
   end
@@ -29,8 +38,10 @@ defmodule Server3Web.Schema do
   end
 
   object :claim do
-    field :id, :id
+    key_fields("id")
+    field :id, non_null(:id)
     field :vehicle, :string
+    field :paid, :integer
   end
 end
 

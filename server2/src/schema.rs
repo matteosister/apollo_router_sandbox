@@ -1,4 +1,4 @@
-use crate::gql_types::Quote;
+use crate::gql_types::{Quote, Claim};
 use async_graphql::*;
 use async_graphql::extensions::Logger;
 
@@ -16,6 +16,11 @@ impl Query {
     #[graphql(entity)]
     async fn quote(&self, id: ID) -> Quote {
         Quote { id }
+    }
+
+    #[graphql(entity)]
+    async fn claim(&self, id: ID) -> Claim {
+        Claim { id }
     }
 }
 
