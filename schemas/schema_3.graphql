@@ -1,0 +1,55 @@
+"Represents a schema"
+schema {
+  query: RootQueryType
+}
+
+type Claim @key(fields: "id") {
+  id: ID!
+  vehicle: String
+  paid: Int
+}
+
+type _Service {
+  sdl: String
+}
+
+"Quote"
+type Quote @extends @key(fields: "id") {
+  id: ID! @external
+  claims: [Claim]
+  _resolveReference: Quote
+}
+
+"a union of all types that use the @key directive"
+union _Entity = Quote | Claim
+
+type RootQueryType {
+  """
+  The _service field on the query root returns SDL
+  which includes all of the service's types (after any non-federation transforms),
+  as well as federation directive annotations on the fields and types.
+  The federation schema modifications (i.e. new types and directive definitions)
+  should not be included in this SDL.
+  """
+  _service: _Service!
+
+  """
+  Returns a non-nullable list of _Entity types
+  and have a single argument with an argument name of representations
+  and type [_Any!]! (non-nullable list of non-nullable _Any scalars).
+  The _entities field on the query root must allow a list of _Any scalars
+  which are "representations" of entities from external services.
+  These representations should be validated with the following rules:
+
+  - Any representation without a __typename: String field is invalid.
+  - Representations must contain at least the fields defined in the fieldset of a @key directive on the base type.
+  """
+  _entities(representations: [_Any!]!): [_Entity]!
+
+  multiply(a: Int!, b: Int!): Int!
+
+  claim(id: ID!): Claim!
+}
+
+"The _Any scalar is used to pass representations of entities from external services into the root _entities field for execution."
+scalar _Any
