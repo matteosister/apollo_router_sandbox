@@ -10,6 +10,7 @@ pub struct Query;
 impl Query {
     /// Returns the sum of a and b
     async fn subtract(&self, a: i32, b: i32) -> i32 {
+        //std::thread::sleep(std::time::Duration::from_millis(500));
         a - b
     }
 

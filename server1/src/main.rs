@@ -14,7 +14,7 @@ async fn main() -> std::io::Result<()> {
     env_logger::init();
     HttpServer::new(move || {
         App::new()
-            .data(get_schema().clone())
+            .data(get_schema())
             .route("/graphql", web::post().to(graphql))
     })
     .bind(("0.0.0.0", 8080))?
