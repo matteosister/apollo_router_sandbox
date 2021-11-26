@@ -1,10 +1,10 @@
-server_quotes:
+server_1:
 		RUST_LOG=info cargo watch -x 'run --bin server1'
 
-server_brokers:
+server_2:
 		RUST_LOG=info cargo watch -x 'run --bin server2'
 
-server_claims:
+server_3:
 		cd server3; mix phx.server
 
 superschema:
