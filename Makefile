@@ -24,17 +24,17 @@ print_schema_3:
 
 print_schemas: print_schema_1 print_schema_2 print_schema_3
 
-publish_schema_1:
+publish_schema_1: print_schema_1
 		rover subgraph publish Sandbox-rw7mc@current \
           --schema ./schemas/schema_1.graphql \
           --name quotes
 
-publish_schema_2:
+publish_schema_2: print_schema_2
 		rover subgraph publish Sandbox-rw7mc@current \
           --schema ./schemas/schema_2.graphql \
           --name brokers
 
-publish_schema_3:
+publish_schema_3: print_schema_3
 		rover subgraph publish Sandbox-rw7mc@current \
           --schema ./schemas/schema_3.graphql \
           --name claims
