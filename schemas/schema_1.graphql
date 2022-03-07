@@ -3,6 +3,7 @@ type Query {
 	Returns the sum of a and b
 	"""
 	add(a: Int!, b: Int!): Int!
+	quotes(ids: [ID!]!): [Quote!]!
 	quote(id: ID!): Quote!
 }
 type Quote @key(fields: "id") {
