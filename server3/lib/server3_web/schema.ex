@@ -32,7 +32,7 @@ defmodule Server3Web.Schema do
 
     field(:_resolve_reference, :quote) do
       resolve fn _, %{__typename: "Quote", id: id}, _ ->
-        {:ok, %Server3Web.Quote{id: id, claims: if id == "1" do [%{id: 10, vehicle: "AA000BB"}] else [] end}}
+        {:ok, %Server3Web.Quote{id: id, claims: if id == "1" do [@claim] else [] end}}
       end
     end
   end
