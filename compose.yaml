@@ -1,8 +1,41 @@
-version: 1
-subgraphs:
-  - name: server1
-    routing_url: http://localhost:8080/graphql
-  - name: server2
-    routing_url: http://localhost:8081/graphql
-  - name: server3
-    routing_url: http://localhost:8082/graphql
+services:
+  conversion:
+    image: rust:1.82
+    volumes:
+      - $PWD/server1:/code
+    working_dir: /code
+    entrypoint: cargo
+    command: run
+    ports:
+      - '8080:8080'
+
+  pricing:
+    image: rust:1.82
+    volumes:
+      - $PWD/server2:/code
+    working_dir: /code
+    entrypoint: cargo
+    command: run
+    ports:
+      - '8081:8081'
+
+  claims:
+    build: server3
+    volumes:
+      - $PWD/server3:/code
+    working_dir: /code
+    entrypoint: /code/entrypoint.sh
+    ports:
+      - '8082:8082'
+
+  router:
+    build: router
+    depends_on:
+      - conversion
+      - pricing
+      - claims
+    volumes:
+      - $PWD/router:/code
+    working_dir: /code
+    ports:
+      - '3002:3002'

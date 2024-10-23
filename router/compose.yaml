@@ -1,0 +1,8 @@
+version: 1
+subgraphs:
+  - name: quotes
+    routing_url: http://quotes:8080/graphql
+  - name: pricing
+    routing_url: http://pricing:8081/graphql
+  - name: claims
+    routing_url: http://claims:8082/graphql
