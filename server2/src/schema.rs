@@ -1,6 +1,6 @@
-use crate::gql_types::{Quote, Claim};
-use async_graphql::*;
+use crate::gql_types::{Claim, Quote, Commission, all_commissions};
 use async_graphql::extensions::Logger;
+use async_graphql::*;
 
 pub type Server2Schema = async_graphql::Schema<Query, EmptyMutation, EmptySubscription>;
 
@@ -14,6 +14,10 @@ impl Query {
         a - b
     }
 
+    async fn commissions(&self) -> Vec<Commission> {
+        all_commissions()
+    }
+
     #[graphql(entity)]
     async fn quote(&self, id: ID) -> Quote {
         Quote { id }
@@ -23,6 +27,8 @@ impl Query {
     async fn claim(&self, id: ID) -> Claim {
         Claim { id }
     }
+
+
 }
 
 pub fn get_schema() -> Server2Schema {

@@ -1,6 +1,6 @@
 use crate::gql_types::Quote;
-use async_graphql::*;
 use async_graphql::extensions::Logger;
+use async_graphql::*;
 
 pub type Server1Schema = async_graphql::Schema<Query, EmptyMutation, EmptySubscription>;
 
@@ -15,14 +15,16 @@ impl Query {
     }
 
     async fn quotes(&self, ids: Vec<ID>) -> Vec<Quote> {
-        ids.into_iter().map(|id| {
-            let plate_number = format!("AA{}BB", &id.to_string());
-            Quote {
-                id: id.clone(),
-                plate_number,
-                price: 200 + id.parse::<i32>().unwrap(),
-            }
-        }).collect()
+        ids.iter()
+            .map(|id| {
+                let plate_number = format!("AA{}BB", &id.to_string());
+                Quote {
+                    id: id.clone(),
+                    plate_number,
+                    price: 200 + id.parse::<i32>().unwrap(),
+                }
+            })
+            .collect()
     }
 
     async fn quote(&self, id: ID) -> Quote {

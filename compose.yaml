@@ -1,0 +1,8 @@
+version: 1
+subgraphs:
+  - name: server1
+    routing_url: http://localhost:8080/graphql
+  - name: server2
+    routing_url: http://localhost:8081/graphql
+  - name: server3
+    routing_url: http://localhost:8082/graphql

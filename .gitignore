@@ -6,3 +6,4 @@ schema.graphql
 # already existing elements were commented out
 
 #/target
+/router.json
