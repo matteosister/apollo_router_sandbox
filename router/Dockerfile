@@ -1,5 +1,5 @@
 FROM node:22
 
-RUN npm i -g wgc
+RUN npm i -g wgc@0.68.6
 
-ADD . /code
+ENTRYPOINT ["/code/entrypoint.sh"]

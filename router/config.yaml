@@ -1,11 +1,1 @@
-dev_mode: true
-listen_addr: 0.0.0.0:3002
-playground_enabled: false
-execution_config:
-  file:
-    # Path to the previous generated file
-    path: "router.json" # or EXECUTION_CONFIG_FILE_PATH
-    watch: true # EXECUTION_CONFIG_FILE_WATCH
-graph:
-  # Result of `wgc router token create`. Can be omitted for local testing.
-  token: "" # GRAPH_API_TOKEN
+version: "1"

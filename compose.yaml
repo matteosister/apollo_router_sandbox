@@ -2,7 +2,7 @@ services:
   conversion:
     image: rust:1.82
     volumes:
-      - $PWD/server1:/code
+      - ./server1:/code
     working_dir: /code
     entrypoint: cargo
     command: run
@@ -12,7 +12,7 @@ services:
   pricing:
     image: rust:1.82
     volumes:
-      - $PWD/server2:/code
+      - ./server2:/code
     working_dir: /code
     entrypoint: cargo
     command: run
@@ -22,20 +22,42 @@ services:
   claims:
     build: server3
     volumes:
-      - $PWD/server3:/code
+      - ./server3:/code
     working_dir: /code
     entrypoint: /code/entrypoint.sh
     ports:
       - '8082:8082'
 
   router:
-    build: router
+    image: ghcr.io/wundergraph/cosmo/router:sha-292d7e4
+    # https://cosmo-docs.wundergraph.com/router/configuration
+    environment:
+      EXECUTION_CONFIG_FILE_PATH: "router.json"
+      EXECUTION_CONFIG_FILE_WATCH: true
+      GRAPH_API_TOKEN: ""
+      LISTEN_ADDR: "0.0.0.0:3002"
+      LOG_LEVEL: debug
+      DEV_MODE: true
+      PLAYGROUND_ENABLED: true
+      PLAYGROUND_PATH: "/playground"
+      GRAPHQL_METRICS_ENABLED: false
+      PROMETHEUS_ENABLED: false
     depends_on:
       - conversion
       - pricing
       - claims
     volumes:
-      - $PWD/router:/code
-    working_dir: /code
+      - ./router/config.yaml:/config.yaml
+      - ./router/router.json:/router.json
     ports:
       - '3002:3002'
+
+  schema:
+    build: router
+    volumes:
+      - ./router:/code
+    depends_on:
+      - conversion
+      - pricing
+      - claims
+    working_dir: /code

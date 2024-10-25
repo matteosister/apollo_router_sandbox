@@ -8,5 +8,5 @@ server_3:
 		cd server3; mix phx.server
 
 run:
-		npx wgc router compose -i compose.yaml > router.json
+		npx wgc router compose -i federation.yaml > router.json
 		./router
