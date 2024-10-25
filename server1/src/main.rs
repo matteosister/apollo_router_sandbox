@@ -1,6 +1,10 @@
-use actix_web::{web, App, HttpServer};
+use actix_web::{web, App, HttpResponse, HttpServer, Responder};
 use async_graphql_actix_web::Response;
 use server1::schema::{get_schema, Server1Schema};
+
+async fn check() -> impl Responder {
+    "ok"
+}
 
 async fn graphql(
     schema: web::Data<Server1Schema>,
@@ -16,6 +20,7 @@ async fn main() -> std::io::Result<()> {
         App::new()
             .data(get_schema())
             .route("/graphql", web::post().to(graphql))
+            .route("/check", web::get().to(check))
     })
     .bind(("0.0.0.0", 8080))?
     .run()
