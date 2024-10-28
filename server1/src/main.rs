@@ -1,4 +1,4 @@
-use actix_web::{web, App, HttpResponse, HttpServer, Responder};
+use actix_web::{web, App, HttpServer, Responder};
 use async_graphql_actix_web::Response;
 use server1::schema::{get_schema, Server1Schema};
 

@@ -1,4 +1,8 @@
 #!/bin/bash
 # Docker entrypoint script.
 
-exec mix phx.server
+if [ -n "$1" ]; then
+  sh -c "$@"
+else
+  exec mix phx.server
+fi

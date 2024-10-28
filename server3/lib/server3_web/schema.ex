@@ -15,7 +15,7 @@ defmodule Server3Web.Schema do
 
     field :claim, non_null(:claim) do
       arg :id, non_null(:id)
-      resolve fn _, args, _ ->
+      resolve fn _, _, _ ->
         {:ok, @claim}
       end
     end
@@ -44,4 +44,3 @@ defmodule Server3Web.Schema do
     field :paid, :integer
   end
 end
-

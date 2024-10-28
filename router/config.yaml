@@ -1,1 +1,17 @@
+# yaml-language-server: $schema=https://raw.githubusercontent.com/wundergraph/cosmo/main/router/pkg/config/config.schema.json
+
 version: "1"
+
+# https://cosmo-docs.wundergraph.com/router/authentication-and-authorization
+#authentication:
+#  providers:
+#    - name: Test Provider # Optional, used for error messages and diagnostics
+#      jwks: # JWKS provider configuration
+#        url: https://example.com/.well-known/jwks.json # URL to load the JWKS from (Authorization server)
+#        header_names: [Authorization] # Optional, Authorization is the default value
+#        header_value_prefixes: [Bearer] # Optional, Bearer is the default value
+#        refresh_interval: 1m # Optional, How often the JWK is refreshed
+#
+#authorization:
+#  reject_operation_if_unauthorized: false
+#  require_authentication: false
