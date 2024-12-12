@@ -5,8 +5,8 @@ server_2:
 		RUST_LOG=info cargo watch -x 'run --bin server2'
 
 server_3:
-		cd server3; mix phx.server
+		cd server3; mix deps.get; mix phx.server
 
 run:
-		npx wgc router compose -i federation.yaml > router.json
+		npx -y wgc router compose -i router/federation.yaml > router.json
 		./router
